@@ -1,11 +1,14 @@
-abstract class ProgrammingSystem {
+import * as fs from 'fs-extra';
+import * as path from "path";
+
+export abstract class ProgrammingSystem {
     /*
-    Basic class, which is used by extension to retrieve available tasks (implemented in sub classes) and
-    perform the chosen one.
+    Basic class, which all device specific classes derives. It implements common methods to all of them.
      */
 
     public constructor() {
         this.addSettings();
+        //this.addTasks();
     }
 
     private addSettings(): void {
@@ -14,25 +17,6 @@ abstract class ProgrammingSystem {
         Function is used only at initialization.
          */
         this.settings.set('ProjectName', 'newProject');
-    }
-
-    public getAvailableTasksList(): Array<string> {
-        /*
-        Returns Array of strings which corresponds to available tasks.
-         */
-        return Array.from(this.taskMap.keys());
-    }
-
-    public runTask(taskName: string): boolean | null {
-        /*
-        Runs selected task.
-         */
-        let task = this.taskMap.get(taskName);
-        if (task != null) {
-            return task();
-        } else {
-            return null;
-        }
     }
 
     public getSettings(): Map<string, string | number> {
@@ -49,8 +33,20 @@ abstract class ProgrammingSystem {
         this.settings = new Map([...this.settings, ...newSettings]);
     }
 
-    protected taskMap = new Map<string, () => boolean>();
     protected settings = new Map<string, string | number>();
-}
 
-export default ProgrammingSystem;
+    public newProjectTask(location: string): boolean {
+        /*
+        Creates new project at the specified location.
+         */
+        try {
+            fs.ensureDirSync(path.join(location, 'dupa'));
+        } catch (err) {
+            console.error(err);
+            return false;
+        }
+        return true;
+    }
+
+
+}

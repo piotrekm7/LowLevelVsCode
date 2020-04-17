@@ -1,7 +1,5 @@
-import Embedded from "./Embedded";
+import {Embedded} from "./Embedded";
 
-abstract class NRF extends Embedded{
+export abstract class NRF extends Embedded{
 
 }
-
-export default NRF;

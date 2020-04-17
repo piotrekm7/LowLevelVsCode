@@ -1,7 +1,5 @@
-import CProgramming from "./CProgramming";
+import {CProgramming} from "./CProgramming";
 
-abstract class Embedded extends CProgramming{
+export abstract class Embedded extends CProgramming{
 
 }
-
-export default Embedded;

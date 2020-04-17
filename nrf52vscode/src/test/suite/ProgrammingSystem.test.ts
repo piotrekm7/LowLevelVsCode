@@ -1,4 +1,4 @@
-import ProgrammingSystem from "../../core/ProgrammingSystem";
+import {ProgrammingSystem} from "../../core/ProgrammingSystem";
 import * as assert from 'assert';
 
 class ProgrammingSystemImplementation extends ProgrammingSystem {
