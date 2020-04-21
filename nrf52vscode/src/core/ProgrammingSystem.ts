@@ -8,10 +8,9 @@ export abstract class ProgrammingSystem {
 
     public constructor() {
         this.addSettings();
-        //this.addTasks();
     }
 
-    private addSettings(): void {
+    protected addSettings(): void {
         /*
         Adds settings required by ProgrammingSystem.
         Function is used only at initialization.
@@ -19,28 +18,29 @@ export abstract class ProgrammingSystem {
         this.settings.set('ProjectName', 'newProject');
     }
 
-    public getSettings(): Map<string, string | number> {
+    public getSettings(): Map<string, string> {
         /*
         Returns copy of system settings.
          */
         return new Map(this.settings);
     }
 
-    public updateSettings(newSettings: Map<string, string | number>): void {
+    public updateSettings(newSettings: Map<string, string>): void {
         /*
         Updates system settings.
          */
         this.settings = new Map([...this.settings, ...newSettings]);
     }
 
-    protected settings = new Map<string, string | number>();
+    protected settings = new Map<string, string>();
 
     public newProjectTask(location: string): boolean {
         /*
         Creates new project at the specified location.
          */
         try {
-            fs.ensureDirSync(path.join(location, 'dupa'));
+            fs.ensureDirSync(path.join(location, 'src'));
+            fs.ensureDirSync(path.join(location, '.vscode'));
         } catch (err) {
             console.error(err);
             return false;
