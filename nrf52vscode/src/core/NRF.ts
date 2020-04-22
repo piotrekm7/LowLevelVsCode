@@ -18,40 +18,33 @@ export abstract class NRF extends Embedded {
         return path.join(this.settings.get('GNU_GCC')!, 'bin/arm-none-eabi-gcc');
     }
 
-    protected getIncludePath(): string {
+    protected getIncludePath(): Array<string> {
         /*
         Returns include Path for NRF devices.
          */
-        return `
-            "\${workspaceFolder}/**",
-            "${path.join(this.settings.get('GNU_GCC')!, 'arm-none-eabi/include')}",
-            "${path.join(this.settings.get('nRF_SDK')!, 'modules/**')}",
-            "${path.join(this.settings.get('nRF_SDK')!, 'components/**')}"
-            `;
+        return [
+            '${workspaceFolder}/**',
+            path.join(this.settings.get('GNU_GCC')!, 'arm-none-eabi/include'),
+            path.join(this.settings.get('nRF_SDK')!, 'modules/**'),
+            path.join(this.settings.get('nRF_SDK')!, 'components/**')
+        ];
     }
 
-    protected getDefines(): string {
-        /*
-        Transforms defines list to appropriate format
-         */
-        return '"' + this.getDefinesList().join('","') + '"';
-    }
-
-    protected getDefinesList(): Array<string> {
+    protected getDefines(): Array<string> {
         /*
         List of C defines to be set up for all NRF devices.
          */
         return [
-            "CONFIG_GPIO_AS_PINRESET",
-            "INITIALIZE_USER_SECTIONS",
-            "FLOAT_ABI_HARD",
-            "NRF_SD_BLE_API_VERSION=6",
-            "S140",
-            "SOFTDEVICE_PRESENT",
-            "SWI_DISABLE0",
-            "_DEBUG",
-            "UNICODE",
-            "_UNICODE"
+            'CONFIG_GPIO_AS_PINRESET',
+            'INITIALIZE_USER_SECTIONS',
+            'FLOAT_ABI_HARD',
+            'NRF_SD_BLE_API_VERSION=6',
+            'S140',
+            'SOFTDEVICE_PRESENT',
+            'SWI_DISABLE0',
+            '_DEBUG',
+            'UNICODE',
+            '_UNICODE'
         ];
     }
 }

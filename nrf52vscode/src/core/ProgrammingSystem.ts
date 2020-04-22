@@ -48,5 +48,10 @@ export abstract class ProgrammingSystem {
         return true;
     }
 
-
+    /*
+    Formatting options for json files
+     */
+    protected jsonOptions = {
+        spaces: 4
+    };
 }
