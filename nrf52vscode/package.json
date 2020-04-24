@@ -1,7 +1,7 @@
 {
   "name": "nrf52vscode",
   "displayName": "nrf52vscode",
-  "description": "Visual Studio Extension for NRF52 microcontrollers",
+  "description": "Visual Studio Code Extension for low level programming",
   "version": "0.0.1",
   "publisher": "Piotr Muras",
   "author": {
@@ -14,15 +14,11 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:nrf52.build"
+    "onCommand:LowLevelVsCode.NewProject"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
-      {
-        "command": "nrf52.build",
-        "title": "dupaBuild"
-      },
       {
         "command": "LowLevelVsCode.NewProject",
         "title": "LowLevelVsCode.NewProject"
@@ -30,10 +26,6 @@
     ],
     "menus": {
       "editor/title": [
-        {
-          "command": "nrf52.build",
-          "group": "navigation"
-        },
         {
           "command": "LowLevelVsCode.NewProject",
           "group": "navigation"
