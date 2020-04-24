@@ -23,6 +23,7 @@ export abstract class CProgramming extends ProgrammingSystem {
          */
         try {
             fs.writeJSONSync(path.join(location, 'c_cpp_properties.json'), this.getCCppConfiguration(), this.jsonOptions);
+            fs.writeJSONSync(path.join(location, 'tasks.json'), this.getVsCodeTasks(), this.jsonOptions);
         } catch (err) {
             console.error(err);
             return false;
@@ -52,6 +53,52 @@ export abstract class CProgramming extends ProgrammingSystem {
             ],
             version: 4
         };
+    }
+
+    private getVsCodeTasks(): any {
+        /*
+        Returns Vs Code task configuration for specific platform.
+         */
+        return {
+            "version": "2.0.0",
+            "tasks": this.getVsCodeTaskList()
+        };
+    }
+
+    protected getVsCodeTaskList(): Array<any> {
+        /*
+        Returns list of VS Code tasks.
+         */
+        return [
+            {
+                "label": "build",
+                "type": "shell",
+                "command": "make",
+                "options": {
+                    "cwd": "${workspaceFolder}"
+                },
+                "presentation": {
+                    "echo": true,
+                    "focus": true,
+                    "panel": "new",
+                    "reveal": "always"
+                },
+                "problemMatcher": [],
+                "group": {
+                    "kind": "build",
+                    "isDefault": true
+                }
+            },
+            {
+                "label": "clean",
+                "type": "shell",
+                "command": "make clean",
+                "options": {
+                    "cwd": "${workspaceFolder}"
+                },
+                "problemMatcher": []
+            }
+        ];
     }
 
     protected abstract getIncludePath(): Array<string>;

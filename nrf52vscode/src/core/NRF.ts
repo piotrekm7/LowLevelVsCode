@@ -47,4 +47,53 @@ export abstract class NRF extends Embedded {
             '_UNICODE'
         ];
     }
+
+    protected getVsCodeTaskList(): Array<any> {
+        /*
+        Returns list of tasks specific for NRF devices.
+         */
+        const extra_tasks = [
+            {
+                "label": "flash",
+                "type": "shell",
+                "command": "make flash",
+                "options": {
+                    "cwd": "${workspaceFolder}"
+                },
+                "group": "build",
+                "problemMatcher": []
+            },
+            {
+                "label": "flash_softdevice",
+                "type": "shell",
+                "command": "make flash_softdevice",
+                "options": {
+                    "cwd": "${workspaceFolder}"
+                },
+                "problemMatcher": []
+            },
+            {
+                "label": "sdk_config",
+                "type": "shell",
+                "command": "make sdk_config",
+                "options": {
+                    // TODO this path is wrong for sure
+                    "cwd": "${workspaceFolder}/pca10056/s140/armgcc"
+                },
+                "problemMatcher": []
+            },
+            {
+                "label": "erase",
+                "type": "shell",
+                "command": "make erase",
+                "options": {
+                    // TODO this path is wrong for sure
+                    "cwd": "${workspaceFolder}/pca10056/s140/armgcc"
+                },
+                "problemMatcher": []
+            }
+        ];
+
+        return super.getVsCodeTaskList().concat(extra_tasks);
+    }
 }
