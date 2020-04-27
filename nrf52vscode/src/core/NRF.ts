@@ -44,7 +44,8 @@ export abstract class NRF extends Embedded {
             'SWI_DISABLE0',
             '_DEBUG',
             'UNICODE',
-            '_UNICODE'
+            '_UNICODE',
+            this.getDeviceSignature()
         ];
     }
 
@@ -54,46 +55,73 @@ export abstract class NRF extends Embedded {
          */
         const extra_tasks = [
             {
-                "label": "flash",
-                "type": "shell",
-                "command": "make flash",
-                "options": {
-                    "cwd": "${workspaceFolder}"
+                label: "flash",
+                type: "shell",
+                command: "make flash",
+                options: {
+                    cwd: "${workspaceFolder}"
                 },
-                "group": "build",
-                "problemMatcher": []
+                group: "build",
+                problemMatcher: []
             },
             {
-                "label": "flash_softdevice",
-                "type": "shell",
-                "command": "make flash_softdevice",
-                "options": {
-                    "cwd": "${workspaceFolder}"
+                label: "flash_softdevice",
+                type: "shell",
+                command: "make flash_softdevice",
+                options: {
+                    cwd: "${workspaceFolder}"
                 },
-                "problemMatcher": []
+                problemMatcher: []
             },
             {
-                "label": "sdk_config",
-                "type": "shell",
-                "command": "make sdk_config",
-                "options": {
+                label: "sdk_config",
+                type: "shell",
+                command: "make sdk_config",
+                options: {
                     // TODO this path is wrong for sure
-                    "cwd": "${workspaceFolder}/pca10056/s140/armgcc"
+                    cwd: "${workspaceFolder}/pca10056/s140/armgcc"
                 },
-                "problemMatcher": []
+                problemMatcher: []
             },
             {
-                "label": "erase",
-                "type": "shell",
-                "command": "make erase",
-                "options": {
+                label: "erase",
+                type: "shell",
+                command: "make erase",
+                options: {
                     // TODO this path is wrong for sure
-                    "cwd": "${workspaceFolder}/pca10056/s140/armgcc"
+                    cwd: "${workspaceFolder}/pca10056/s140/armgcc"
                 },
-                "problemMatcher": []
+                problemMatcher: []
             }
         ];
 
         return super.getVsCodeTaskList().concat(extra_tasks);
     }
+
+    protected getDebuggerConfiguration(): any {
+        /*
+        Returns cortex-debug configuration used for debugging NRF devices via J-Link.
+         */
+        return {
+            type: "cortex-debug",
+            request: "launch",
+            name: "Debug J-Link",
+            cwd: "${workspaceRoot}",
+            // TODO check this path
+            executable: "${workspaceRoot}/_build/nrf52840_xxaa.out",
+            // TODO should be configurable
+            serverpath: "C:/Program Files (x86)/SEGGER/JLink/JLinkGDBServerCL.exe",
+            servertype: "jlink",
+            device: this.getDeviceSignature(),
+            interface: "swd",
+            serialNumber: "",
+            runToMain: true,
+            armToolchainPath: this.settings.get('GNU_GCC'),
+            preLaunchTask: "build",
+            // TODO should depend on specific device
+            svdFile: "${workspaceRoot}/nrf52840.svd"
+        };
+    }
+
+    protected abstract getDeviceSignature(): string;
 }

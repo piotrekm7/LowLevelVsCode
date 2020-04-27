@@ -7,8 +7,11 @@ export class NRF52840 extends NRF52 {
          */
         const extra_defines = [
             'BOARD_PCA10056',
-            'NRF52840_XXAA',
         ];
         return super.getDefines().concat(extra_defines);
+    }
+
+    protected getDeviceSignature(): string {
+        return "NRF52840_XXAA";
     }
 }

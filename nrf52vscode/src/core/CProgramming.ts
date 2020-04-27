@@ -24,6 +24,7 @@ export abstract class CProgramming extends ProgrammingSystem {
         try {
             fs.writeJSONSync(path.join(location, 'c_cpp_properties.json'), this.getCCppConfiguration(), this.jsonOptions);
             fs.writeJSONSync(path.join(location, 'tasks.json'), this.getVsCodeTasks(), this.jsonOptions);
+            fs.writeJSONSync(path.join(location, 'launch.json'), this.getLaunchConfiguration(), this.jsonOptions);
         } catch (err) {
             console.error(err);
             return false;
@@ -60,8 +61,8 @@ export abstract class CProgramming extends ProgrammingSystem {
         Returns Vs Code task configuration for specific platform.
          */
         return {
-            "version": "2.0.0",
-            "tasks": this.getVsCodeTaskList()
+            version: "2.0.0",
+            tasks: this.getVsCodeTaskList()
         };
     }
 
@@ -71,35 +72,47 @@ export abstract class CProgramming extends ProgrammingSystem {
          */
         return [
             {
-                "label": "build",
-                "type": "shell",
-                "command": "make",
-                "options": {
-                    "cwd": "${workspaceFolder}"
+                label: "build",
+                type: "shell",
+                command: "make",
+                options: {
+                    cwd: "${workspaceFolder}"
                 },
-                "presentation": {
-                    "echo": true,
-                    "focus": true,
-                    "panel": "new",
-                    "reveal": "always"
+                presentation: {
+                    echo: true,
+                    focus: true,
+                    panel: "new",
+                    reveal: "always"
                 },
-                "problemMatcher": [],
-                "group": {
-                    "kind": "build",
-                    "isDefault": true
+                problemMatcher: [],
+                group: {
+                    kind: "build",
+                    isDefault: true
                 }
             },
             {
-                "label": "clean",
-                "type": "shell",
-                "command": "make clean",
-                "options": {
-                    "cwd": "${workspaceFolder}"
+                label: "clean",
+                type: "shell",
+                command: "make clean",
+                options: {
+                    cwd: "${workspaceFolder}"
                 },
-                "problemMatcher": []
+                problemMatcher: []
             }
         ];
     }
+
+    private getLaunchConfiguration(): any {
+        /*
+        Returns launch configuration for visual studio code.
+         */
+        return {
+            version: "0.2.0",
+            configurations: [this.getDebuggerConfiguration()]
+        };
+    }
+
+    protected abstract getDebuggerConfiguration(): any;
 
     protected abstract getIncludePath(): Array<string>;
 
