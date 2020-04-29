@@ -2,6 +2,9 @@ import {ProgrammingSystem} from "../../core/ProgrammingSystem";
 import * as assert from 'assert';
 
 class ProgrammingSystemImplementation extends ProgrammingSystem {
+    generateMakefile(location: string): boolean {
+        return false;
+    }
 }
 
 suite('ProgrammingSystem Test Suite', () => {

@@ -54,4 +54,6 @@ export abstract class ProgrammingSystem {
     protected jsonOptions = {
         spaces: 4
     };
+
+    public abstract generateMakefile(location: string): boolean;
 }

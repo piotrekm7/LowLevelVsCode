@@ -21,13 +21,21 @@
     "commands": [
       {
         "command": "LowLevelVsCode.NewProject",
-        "title": "LowLevelVsCode.NewProject"
+        "title": "New Project"
+      },
+      {
+        "command": "LowLevelVsCode.generateMakefile",
+        "title": "Generate Makefile"
       }
     ],
     "menus": {
       "editor/title": [
         {
           "command": "LowLevelVsCode.NewProject",
+          "group": "navigation"
+        },
+        {
+          "command": "LowLevelVsCode.generateMakefile",
           "group": "navigation"
         }
       ]
