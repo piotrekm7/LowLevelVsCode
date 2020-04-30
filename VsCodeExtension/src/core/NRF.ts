@@ -9,6 +9,7 @@ export abstract class NRF extends Embedded {
         super.addSettings();
         this.settings.set('GNU_GCC', '');
         this.settings.set('nRF_SDK', '');
+        this.settings.set('JLinkGDBServer', '');
     }
 
     protected getCompilerPath(): string {
@@ -109,8 +110,7 @@ export abstract class NRF extends Embedded {
             cwd: "${workspaceRoot}",
             // TODO check this path
             executable: "${workspaceRoot}/_build/nrf52840_xxaa.out",
-            // TODO should be configurable
-            serverpath: "C:/Program Files (x86)/SEGGER/JLink/JLinkGDBServerCL.exe",
+            serverpath: this.settings.get('JLinkGDBServer'),
             servertype: "jlink",
             device: this.getDeviceSignature(),
             interface: "swd",

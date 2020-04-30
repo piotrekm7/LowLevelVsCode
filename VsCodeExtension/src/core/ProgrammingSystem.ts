@@ -45,6 +45,16 @@ export abstract class ProgrammingSystem {
             console.error(err);
             return false;
         }
+        return this.saveSettings(path.join(location, '.vscode'));
+    }
+
+    private saveSettings(location: string): boolean {
+        try {
+            fs.writeJSONSync(path.join(location, 'lowlevelvscode.json'), [...this.settings], this.jsonOptions);
+        } catch (err) {
+            console.error(err);
+            return false;
+        }
         return true;
     }
 
