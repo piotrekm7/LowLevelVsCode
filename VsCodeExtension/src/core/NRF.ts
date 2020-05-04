@@ -124,4 +124,8 @@ export abstract class NRF extends Embedded {
     }
 
     protected abstract getDeviceSignature(): string;
+
+    protected getBuildTarget(): string {
+        return this.getDeviceSignature();
+    }
 }
