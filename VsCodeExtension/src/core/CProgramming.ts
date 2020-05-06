@@ -141,8 +141,10 @@ export abstract class CProgramming extends ProgrammingSystem {
             TARGETS          := ${this.getBuildTarget()}
             OUTPUT_DIRECTORY := _build
             
-            $(OUTPUT_DIRECTORY)/nrf52840_xxaa.out: \\
-                LINKER_SCRIPT  := ble_app_template_gcc_nrf52.ld
+            SDK_ROOT := ${this.settings.get('nRF_SDK')}
+            PROJ_DIR := src
+            
+            LINKER_SCRIPT  := ble_app_template_gcc_nrf52.ld
             
             # Source files common to all targets
             SRC_FILES += \\
@@ -197,15 +199,15 @@ export abstract class CProgramming extends ProgrammingSystem {
     protected abstract getLibFiles(): string;
 
     protected getCFlags(): string {
-        return '-Wall -Werror';
+        return '-Wall -Werror ';
     }
 
     private getOptimizationFlags(): string {
-        return '-g3';
+        return '-g3 ';
     }
 
     protected getAsmFlags(): string {
-        return '-g3';
+        return '-g3 ';
     }
 
     protected abstract getLdFlags(): string;

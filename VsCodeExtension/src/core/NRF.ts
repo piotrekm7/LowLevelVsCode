@@ -8,7 +8,7 @@ export abstract class NRF extends Embedded {
          */
         super.addSettings();
         this.settings.set('GNU_GCC', '');
-        this.settings.set('nRF_SDK', '');
+        this.settings.set('nRF_SDK', 'C:\\Users\\piotr\\Desktop\\ABB\\nrf52incode\\nRF5_SDK_15.3.0_59ac345\\nRF5_SDK_15.3.0_59ac345');
         this.settings.set('JLinkGDBServer', '');
     }
 
