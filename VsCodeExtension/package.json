@@ -39,6 +39,27 @@
           "group": "navigation"
         }
       ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "lowlevelvscode",
+          "title": "Low Level VS Code",
+          "icon": "resources/cpu.svg"
+        }
+      ]
+    },
+    "views": {
+      "lowlevelvscode": [
+        {
+          "id": "lowlevelvscode-activitybar.projectTasks",
+          "name": "Project Tasks"
+        },
+        {
+          "id": "lowlevelvscode-activitybar.quickAccess",
+          "name": "Quick Access"
+        }
+      ]
     }
   },
   "scripts": {
