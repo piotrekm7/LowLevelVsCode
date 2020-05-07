@@ -1,7 +1,10 @@
 import {Embedded} from "./Embedded";
 import * as path from "path";
+import {DependencyAnalyzer} from "./DependencyAnalyzer";
 
 export abstract class NRF extends Embedded {
+    private dependencyAnalyzer = new DependencyAnalyzer("", [this.settings.get('nRF_SDK')!]);
+
     protected addSettings(): void {
         /*
         Adds common settings for all NRF devices.
@@ -126,6 +129,33 @@ export abstract class NRF extends Embedded {
     protected abstract getDeviceSignature(): string;
 
     protected getBuildTarget(): string {
+        /*
+        Returns build target for compiler.
+         */
         return this.getDeviceSignature();
+    }
+
+    protected getIncludeFolders(): string {
+        /*
+        Runs DependencyAnalyzer for generating list of include folders.
+        Transform list of folders to appropriately formatted string.
+         */
+        return this.dependencyAnalyzer.getListOfIncludeFolders().join(' \\\n');
+    }
+
+    protected getSourceFiles(): string {
+        /*
+        Runs DependencyAnalyzer for generating list of source files.
+        Transform list of source files to appropriately formatted string.
+         */
+        return this.dependencyAnalyzer.getListOfSourceDependencies().join(' \\\n');
+    }
+
+    //TODO Consider allowing user to edit list of lib files
+    protected getLibFiles(): string {
+        /*
+        Returns list of additional libraries required by project.
+         */
+        return "";
     }
 }
