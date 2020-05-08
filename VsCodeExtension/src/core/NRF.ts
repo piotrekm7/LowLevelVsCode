@@ -10,9 +10,9 @@ export abstract class NRF extends Embedded {
         Adds common settings for all NRF devices.
          */
         super.addSettings();
-        this.settings.set('GNU_GCC', '');
+        this.settings.set('GNU_GCC', 'C:/Program Files (x86)/GNU Tools ARM Embedded/7 2018-q2-update/');
         this.settings.set('nRF_SDK', 'C:\\Users\\piotr\\Desktop\\ABB\\nrf52incode\\nRF5_SDK_15.3.0_59ac345\\nRF5_SDK_15.3.0_59ac345');
-        this.settings.set('JLinkGDBServer', '');
+        this.settings.set('JLinkGDBServer', 'C:/Program Files (x86)/SEGGER/JLink/JLinkGDBServerCL.exe');
     }
 
     protected getCompilerPath(): string {
@@ -53,55 +53,6 @@ export abstract class NRF extends Embedded {
         ];
     }
 
-    protected getVsCodeTaskList(): Array<any> {
-        /*
-        Returns list of tasks specific for NRF devices.
-         */
-        const extra_tasks = [
-            {
-                label: "flash",
-                type: "shell",
-                command: "make flash",
-                options: {
-                    cwd: "${workspaceFolder}"
-                },
-                group: "build",
-                problemMatcher: []
-            },
-            {
-                label: "flash_softdevice",
-                type: "shell",
-                command: "make flash_softdevice",
-                options: {
-                    cwd: "${workspaceFolder}"
-                },
-                problemMatcher: []
-            },
-            {
-                label: "sdk_config",
-                type: "shell",
-                command: "make sdk_config",
-                options: {
-                    // TODO this path is wrong for sure
-                    cwd: "${workspaceFolder}/pca10056/s140/armgcc"
-                },
-                problemMatcher: []
-            },
-            {
-                label: "erase",
-                type: "shell",
-                command: "make erase",
-                options: {
-                    // TODO this path is wrong for sure
-                    cwd: "${workspaceFolder}/pca10056/s140/armgcc"
-                },
-                problemMatcher: []
-            }
-        ];
-
-        return super.getVsCodeTaskList().concat(extra_tasks);
-    }
-
     protected getDebuggerConfiguration(): any {
         /*
         Returns cortex-debug configuration used for debugging NRF devices via J-Link.
@@ -119,7 +70,7 @@ export abstract class NRF extends Embedded {
             interface: "swd",
             serialNumber: "",
             runToMain: true,
-            armToolchainPath: this.settings.get('GNU_GCC'),
+            armToolchainPath: this.settings.get('GNU_GCC') + '/bin',
             preLaunchTask: "build",
             // TODO should depend on specific device
             svdFile: "${workspaceRoot}/nrf52840.svd"

@@ -13,6 +13,24 @@ export abstract class NRF52 extends NRF {
         return super.getDefines().concat(extra_defines);
     }
 
+    protected getVsCodeTaskList(): Array<any> {
+        /*
+        Adds tasks specific for NRF52 devices
+         */
+        const extra_tasks = [
+            {
+                label: "flash",
+                type: "shell",
+                command: `nrfjprog -f nrf52 --program _build/${this.getBuildTarget()}.hex --sectorerase --reset`,
+                options: {
+                    cwd: "${workspaceFolder}"
+                },
+                problemMatcher: []
+            }
+        ];
+        return super.getVsCodeTaskList().concat(extra_tasks);
+    }
+
     public newProjectTask(location: string): boolean {
         if (super.newProjectTask(location)) {
             return this.saveLinkerTemplate(location);
