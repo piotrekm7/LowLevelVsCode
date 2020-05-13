@@ -43,8 +43,8 @@ export function newProject(context: vscode.ExtensionContext) {
 						break;
 					case 'submit':
 						// tutaj jest string z nazwą typu
-						vscode.window.showErrorMessage(message.value);
-						// System.newProject();
+						// vscode.window.showErrorMessage(message.value);
+						System.newProject();
 						break;
 				}
 			},
