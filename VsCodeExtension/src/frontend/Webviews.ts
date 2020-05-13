@@ -44,7 +44,7 @@ export function newProject(context: vscode.ExtensionContext) {
 					case 'submit':
 						// tutaj jest string z nazwą typu
 						// vscode.window.showErrorMessage(message.value);
-						System.newProject();
+						System.newProject(message.value as Systems);
 						break;
 				}
 			},
