@@ -5,7 +5,12 @@ import {System} from '../core/System'
 
 import {Systems} from '../core/SystemFactory';
 
-export function newProject(context: vscode.ExtensionContext) {
+/** 
+ * Opening webview with select for new project
+ * @param  context  
+ * @return callback with vscode context in scope 
+ */
+export function newProject(context: vscode.ExtensionContext): () => void {
 	return () => {
 		const panel = vscode.window.createWebviewPanel(
 			'newProject',
@@ -17,14 +22,22 @@ export function newProject(context: vscode.ExtensionContext) {
 			}
 		);
 
-		const onDiskPath = vscode.Uri.file(path.join(context.extensionPath, 'src', 'frontend', 'main.js'))
-		const scriptPath = panel.webview.asWebviewUri(onDiskPath);
+		function getPathTo(filename: string): string {
+			const fileUri = vscode.Uri.file(path.join(context.extensionPath, 'src', 'frontend', filename))
+			const filePath = panel.webview.asWebviewUri(fileUri).toString();
+			return filePath;
+		}
+
 
 		fs.readFile(path.join(context.extensionPath,'src', 'frontend', 'index.html'),(err,data) => {
 			if(err) {
 				console.error(err)
+				return;
 			}
-        	panel.webview.html = String(data).replace(/MAIN_JS/, scriptPath.toString());
+			const htmlString = String(data)
+				.replace(/\{\{main\.js\}\}/, getPathTo('main.js'))
+				.replace(/\{\{style\.css\}\}/, getPathTo('style.css'));
+        	panel.webview.html = htmlString;
 		});
 
 		const systemNames: string[] = [];
@@ -42,8 +55,8 @@ export function newProject(context: vscode.ExtensionContext) {
 						panel.webview.postMessage(systemNames);
 						break;
 					case 'submit':
-						// tutaj jest string z nazwą typu
-						// vscode.window.showErrorMessage(message.value);
+						// string in value contains name of system
+						// converted to Systems for typechecking
 						System.newProject(message.value as Systems);
 						break;
 				}
