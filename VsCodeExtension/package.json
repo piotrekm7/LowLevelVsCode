@@ -26,6 +26,10 @@
       {
         "command": "LowLevelVsCode.generateMakefile",
         "title": "Generate Makefile"
+      },
+      {
+        "command": "LowLevelVsCode.projectSettings",
+        "title": "Project Settings"
       }
     ],
     "menus": {
@@ -36,6 +40,10 @@
         },
         {
           "command": "LowLevelVsCode.generateMakefile",
+          "group": "navigation"
+        },
+        {
+          "command": "LowLevelVsCode.projectSettings",
           "group": "navigation"
         }
       ]
