@@ -20,4 +20,4 @@ document.getElementById("button-send-type").addEventListener('click', e => {
 	console.log('wysylanie...');
 });
 
-vscode.postMessage({type: 'ready'});
+vscode.postMessage({type: 'loaded'});
