@@ -13,6 +13,54 @@ export abstract class NRF52 extends NRF {
         return super.getDefines().concat(extra_defines);
     }
 
+    // TODO consider moving common to c and asm flags to another
+    // function to avoid duplication
+    // TODO add some docs
+    protected getCFlags(): string {
+        const flags = [
+            '-DCONFIG_GPIO_AS_PINRESET',
+            '-DFLOAT_ABI_HARD',
+            '-DSOFTDEVICE_PRESENT',
+            '-DSWI_DISABLE0',
+            '-mcpu=cortex-m4',
+            '-mthumb -mabi=aapcs',
+            '-mfloat-abi=hard -mfpu=fpv4-sp-d16',
+            '-ffunction-sections -fdata-sections -fno-strict-aliasing',
+            '-fno-builtin -fshort-enums',
+            '-D__HEAP_SIZE=8192',
+            '-D__STACK_SIZE=8192'
+        ];
+        return super.getCFlags() + flags.join(' ');
+    }
+
+    protected getAsmFlags(): string {
+        const flags = [
+            '-mcpu=cortex-m4',
+            '-mthumb -mabi=aapcs',
+            '-mfloat-abi=hard -mfpu=fpv4-sp-d16',
+            '-DCONFIG_GPIO_AS_PINRESET',
+            '-DFLOAT_ABI_HARD',
+            '-DSOFTDEVICE_PRESENT',
+            '-DSWI_DISABLE0',
+            '-D__HEAP_SIZE=8192',
+            '-D__STACK_SIZE=8192'
+        ];
+        return super.getAsmFlags() + flags.join(' ');
+    }
+
+    protected getLdFlags(): string {
+        const flags = [
+            '-mthumb -mabi=aapcs -L $(SDK_ROOT)\\modules\\nrfx\\mdk -T $(LINKER_SCRIPT)',
+            '-mcpu=cortex-m4',
+            '-mfloat-abi=hard -mfpu=fpv4-sp-d16',
+            '-Wl,--no-gc-sections',
+            '-Wl,--verbose',
+            '--specs nosys.specs',
+            '--specs nano.specs',
+        ];
+        return flags.join(' ');
+    }
+
     protected getVsCodeTaskList(): Array<any> {
         /*
         Adds tasks specific for NRF52 devices

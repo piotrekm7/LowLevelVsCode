@@ -1,12 +1,12 @@
 import {NRF52} from "./NRF52";
 
-export class NRF52840 extends NRF52 {
+export class NRF52832 extends NRF52 {
     protected getDefines(): Array<string> {
         /*
-        Adds defines specific for NRF52840 microcontrollers.
+        Adds defines specific for NRF52832 microcontrollers.
          */
         const extra_defines = [
-            'BOARD_PCA10056',
+            'BOARD_PCA10040',
         ];
         return super.getDefines().concat(extra_defines);
     }
@@ -15,7 +15,7 @@ export class NRF52840 extends NRF52 {
         /*
         Returns device signature which informs external software about target device.
          */
-        return "NRF52840_XXAA";
+        return "NRF52832_XXAA";
     }
 
     // TODO Add some docs
@@ -23,20 +23,20 @@ export class NRF52840 extends NRF52 {
     // function to avoid duplication
     protected getCFlags(): string {
         const flags = [
-            '-DBOARD_PCA10056',
-            '-DNRF52840_XXAA',
-            '-DNRF_SD_BLE_API_VERSION=5',
-            '-DS140'
+            '-DBOARD_PCA10040',
+            '-DNRF52832_XXAA',
+            '-DNRF_SD_BLE_API_VERSION=6',
+            '-DS132'
         ];
         return super.getCFlags() + flags.join(' ');
     }
 
     protected getAsmFlags(): string {
         const flags = [
-            '-DBOARD_PCA10056',
-            '-DNRF52840_XXAA',
-            '-DNRF_SD_BLE_API_VERSION=5',
-            '-DS140'
+            '-DBOARD_PCA10040',
+            '-DNRF52832_XXAA',
+            '-DNRF_SD_BLE_API_VERSION=6',
+            '-DS132'
         ];
         return super.getAsmFlags() + flags.join(' ');
     }

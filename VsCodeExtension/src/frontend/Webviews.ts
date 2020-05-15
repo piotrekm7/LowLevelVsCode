@@ -76,8 +76,8 @@ export function newProject(context: vscode.ExtensionContext): () => void {
                         break;
                     case "submit":
                         // string in value contains name of system
-                        // converted to Systems for typechecking
-                        System.newProject(message.value as Systems);
+                        // converted to Systems
+                        System.newProject(Systems[message.value as keyof typeof Systems]);
                         panel.dispose();
                         break;
                 }

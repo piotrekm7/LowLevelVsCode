@@ -34,6 +34,8 @@ export abstract class NRF extends Embedded {
         ];
     }
 
+
+    // TODO Some of these are device specific, should be moved to subclasses
     protected getDefines(): Array<string> {
         /*
         List of C defines to be set up for all NRF devices.

@@ -8,8 +8,7 @@ export class System {
     private static system: any;
     private static location: string = "";
 
-    // TODO default value is temporary, will be deleted in future
-    public static newProject(projectType?: Systems): void {
+    public static newProject(projectType: Systems): void {
         /*
             Creates new project.
             Enables user choosing folder for new project.
@@ -24,8 +23,7 @@ export class System {
             .then((folders) => {
                 if (folders && folders[0]) {
                     vscode.commands.executeCommand("vscode.openFolder", folders[0]);
-                    // TODO should be projectType used here
-                    System.system = getSystem(Systems.NRF52840);
+                    System.system = getSystem(projectType);
                     System.location = folders[0].fsPath;
                     if (System.system.newProjectTask(System.location)) {
                         console.log("New project created!");
