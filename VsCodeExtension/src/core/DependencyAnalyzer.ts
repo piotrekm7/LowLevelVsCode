@@ -213,4 +213,8 @@ export class DependencyAnalyzer {
             '$(SDK_ROOT)/components/softdevice/common/nrf_sdh_soc.c'
         ];
     }
+
+    private findHeadersInFile(source: string): string[] {
+        return ['dupa'];
+    }
 }
