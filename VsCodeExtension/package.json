@@ -14,7 +14,8 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:LowLevelVsCode.NewProject"
+    "onCommand:LowLevelVsCode.NewProject",
+    "onCommand:LowLevelVsCode.projectSettings"
   ],
   "main": "./out/extension.js",
   "contributes": {
