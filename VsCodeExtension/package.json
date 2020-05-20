@@ -14,7 +14,8 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:LowLevelVsCode.NewProject"
+    "onCommand:LowLevelVsCode.NewProject",
+    "onCommand:LowLevelVsCode.projectSettings"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -32,22 +33,6 @@
         "title": "Project Settings"
       }
     ],
-    "menus": {
-      "editor/title": [
-        {
-          "command": "LowLevelVsCode.NewProject",
-          "group": "navigation"
-        },
-        {
-          "command": "LowLevelVsCode.generateMakefile",
-          "group": "navigation"
-        },
-        {
-          "command": "LowLevelVsCode.projectSettings",
-          "group": "navigation"
-        }
-      ]
-    },
     "viewsContainers": {
       "activitybar": [
         {
@@ -68,7 +53,17 @@
           "name": "Quick Access"
         }
       ]
-    }
+	},
+	"viewsWelcome": [
+		{
+			"view": "lowlevelvscode-activitybar.projectTasks",
+			"contents": "[Generate Makefile](command:LowLevelVsCode.generateMakefile)"
+		},
+		{
+			"view": "lowlevelvscode-activitybar.quickAccess",
+			"contents": "[New Project](command:LowLevelVsCode.NewProject)\n[Project Settings](command:LowLevelVsCode.projectSettings)"
+		}
+	]
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",
