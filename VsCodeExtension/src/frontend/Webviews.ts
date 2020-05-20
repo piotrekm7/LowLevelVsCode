@@ -95,19 +95,25 @@ export function newProject(context: vscode.ExtensionContext): () => void {
  */
 export function projectSettings(context: vscode.ExtensionContext): () => void {
     return () => {
+        let settings: void | Map<string, string>;
+        try {
+            settings = System.getProjectSettings();
+        } catch(err) {
+            vscode.window.showWarningMessage('You have to create or open project first.');
+            return;
+        }
+
         const panel = generateWebviewPanel(
             "projectSettings",
             "Project Settings",
             context
         );
 
-        const settings = System.getProjectSettings();
-
         panel.webview.onDidReceiveMessage(
             (message) => {
                 switch (message.type) {
                     case "loaded":
-                        // panel.webview.postMessage(settings);
+                        panel.webview.postMessage(settings);
                         break;
                     case "submit":
                         break;
