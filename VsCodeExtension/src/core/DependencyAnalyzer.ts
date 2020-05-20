@@ -214,7 +214,9 @@ export class DependencyAnalyzer {
         ];
     }
 
-    private findHeadersInFile(source: string): string[] {
-        return ['dupa'];
+    private findHeadersInFile(source: string): string[] | null {
+        const regexp = /#include\s\"(.+?)\"/g;
+        const includes = [...source.matchAll(regexp)];
+        return includes.map(m => m[1]);
     }
 }

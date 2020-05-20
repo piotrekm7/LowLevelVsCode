@@ -11,9 +11,9 @@ export class System {
     public static newProject(projectType: Systems): void {
         /*
             Creates new project.
+            Asks user about project type.
             Enables user choosing folder for new project.
-            Should ask user about project type. (Not implemented)
-             */
+        */
         vscode.window
             .showOpenDialog({
                 canSelectFiles: false,
@@ -36,12 +36,15 @@ export class System {
     }
 
     static generateMakefile(): void {
-        // TODO should be prooject type specific
-        if (System.system.generateMakefile(System.location)) {
-            console.log("Makefile successfully generated!");
-        } else {
-            console.log("Problem occurred when generating Makefile!");
+        // TODO should be project type specific
+        if (System.system) {
+            if (System.system.generateMakefile(System.location)) {
+                console.log("Makefile successfully generated!");
+            } else {
+                console.log("Problem occurred when generating Makefile!");
+            }
         }
+        return System.systemDoesNotExistBehaviour();
     }
 
     public static getProjectSettings(): Map<string, string> | void {
