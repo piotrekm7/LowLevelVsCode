@@ -3,6 +3,7 @@ import * as path from "path";
 import * as fs from "fs";
 import {System} from "../core/System";
 import {Systems} from "../core/SystemFactory";
+import { stringify } from "querystring";
 
 /**
  * Generating vscode Webview.
@@ -95,7 +96,9 @@ export function newProject(context: vscode.ExtensionContext): () => void {
  */
 export function projectSettings(context: vscode.ExtensionContext): () => void {
     return () => {
-        let settings: void | Map<string, string>;
+        
+        let settings: any | Map<string, string>;
+
         try {
             settings = System.getProjectSettings();
         } catch(err) {
@@ -109,13 +112,22 @@ export function projectSettings(context: vscode.ExtensionContext): () => void {
             context
         );
 
+        // settings = new Map([["ProjectName","newProject"],["GNU_GCC","C:/Program Files (x86)/GNU Tools ARM Embedded/7 2018-q2-update/"],["nRF_SDK","C:\\Users\\piotr\\Desktop\\ABB\\nrf52incode\\nRF5_SDK_15.3.0_59ac345\\nRF5_SDK_15.3.0_59ac345"],["JLinkGDBServer","C:/Program Files (x86)/SEGGER/JLink/JLinkGDBServerCL.exe"]]);
+        const entries = [...settings.entries()];
+
         panel.webview.onDidReceiveMessage(
             (message) => {
                 switch (message.type) {
                     case "loaded":
-                        panel.webview.postMessage(settings);
+                        panel.webview.postMessage(entries);
                         break;
+
                     case "submit":
+                        
+                        const savedSettings: Map<string, string> = new Map(message.value);
+                        // System.updateProjectSettings(savedSettings);
+                        console.log('przyjete dane od projectSettings', [...savedSettings.entries()]);
+                        panel.dispose();
                         break;
                 }
             },
@@ -124,3 +136,5 @@ export function projectSettings(context: vscode.ExtensionContext): () => void {
         );
     };
 }
+
+// [["ProjectName","newProject"],["GNU_GCC","C:/Program Files (x86)/GNU Tools ARM Embedded/7 2018-q2-update/"],["nRF_SDK","C:\\Users\\piotr\\Desktop\\ABB\\nrf52incode\\nRF5_SDK_15.3.0_59ac345\\nRF5_SDK_15.3.0_59ac345"],["JLinkGDBServer","C:/Program Files (x86)/SEGGER/JLink/JLinkGDBServerCL.exe"]]
