@@ -123,9 +123,13 @@ export function projectSettings(context: vscode.ExtensionContext): () => void {
                         break;
 
                     case "submit":
-                        
                         const savedSettings: Map<string, string> = new Map(message.value);
-                        // System.updateProjectSettings(savedSettings);
+                        try {
+                            System.updateProjectSettings(savedSettings);
+                        } catch (err) {
+                            console.log('saving settings error: ', err);
+                        }
+
                         console.log('przyjete dane od projectSettings', [...savedSettings.entries()]);
                         panel.dispose();
                         break;
