@@ -75,12 +75,21 @@ export function newProject(context: vscode.ExtensionContext): () => void {
                     case "loaded":
                         panel.webview.postMessage(systemNames);
                         break;
-                    case "submit":
+                    case "save":
                         // string in value contains name of system
                         // converted to Systems
                         System.newProject(Systems[message.value as keyof typeof Systems]);
                         panel.dispose();
                         break;
+
+                    case "cancel":
+                        panel.dispose();
+                        break;
+
+                    default:
+                        console.log("unrecognized message");
+                        break;
+                        
                 }
             },
             undefined,
@@ -122,7 +131,9 @@ export function projectSettings(context: vscode.ExtensionContext): () => void {
                         panel.webview.postMessage(entries);
                         break;
 
-                    case "submit":
+                    case "save":
+                        console.log("nosz kurwa");
+                        
                         const savedSettings: Map<string, string> = new Map(message.value);
                         try {
                             System.updateProjectSettings(savedSettings);
@@ -131,7 +142,15 @@ export function projectSettings(context: vscode.ExtensionContext): () => void {
                         }
 
                         console.log('przyjete dane od projectSettings', [...savedSettings.entries()]);
+                        // panel.dispose();
+                        break;
+
+                    case "cancel":
                         panel.dispose();
+                        break;
+
+                    default:
+                        console.log("unrecognized message");
                         break;
                 }
             },

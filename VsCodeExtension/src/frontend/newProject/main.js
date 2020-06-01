@@ -16,9 +16,12 @@ window.addEventListener('message', event => {
     createOptions(event.data);
 });
 
-document.getElementById("button-send-type").addEventListener('click', e => {
-    vscode.postMessage({type: 'submit', value: document.getElementById('select-system-type').value});
-    console.log('wysylanie...');
+document.getElementById("button-save").addEventListener('click', e => {
+    vscode.postMessage({type: 'save', value: document.getElementById('select-system-type').value});
+});
+
+document.getElementById("button-cancel").addEventListener('click', e => {
+    vscode.postMessage({type: 'cancel'});
 });
 
 vscode.postMessage({type: 'loaded'});

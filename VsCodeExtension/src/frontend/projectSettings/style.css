@@ -1,27 +1,14 @@
 @import '../globalStyle.css';
 
-.options {
-    display: flex;
-    flex-direction: column;
-    padding: 0px;
-    width: 100%;
-    
-}
 
-.options > div {
-    display: flex;
-    margin: 10px 0;
-    justify-content: flex-end;
+.box {
+    width: 800px;
 }
 
 .options input {
-    /* width: 100%; */
-    /* flex-grow: 1; */
-    margin-left: 10px;
-    margin-right: 10px;
-    width: 600px;
-}
-
-.box {
-    width: 820px;
+    border-radius: 4px;
+    padding: 10px 25px;
+    background-color: #ffffff11;
+    border: solid 1.5px #00000057;
+    color: white;
 }

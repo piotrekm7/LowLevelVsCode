@@ -7,9 +7,11 @@ function createOptions(arr) {
 
     for (const entry of arr) {
         const option = document.createElement("div");
+        option.classList.add('option');
 
         const label = document.createElement("label");
         label.innerHTML = entry[0];
+        label.for = entry[0];
 
         const input = document.createElement("input");
         // label.type = "text";
@@ -28,7 +30,7 @@ window.addEventListener('message', event => {
     createOptions(event.data);
 });
 
-document.getElementById("button-send-type").addEventListener('click', e => {
+document.getElementById("button-save").addEventListener('click', e => {
 
     const inputs = document.querySelectorAll(".options input");
     for (input of inputs) {
@@ -38,8 +40,11 @@ document.getElementById("button-send-type").addEventListener('click', e => {
     const settingsPairs = [...settings.entries()]
     console.log(settingsPairs);
 
-    vscode.postMessage({type: 'submit', value: settingsPairs});
-    console.log('wysylanie...');
+    vscode.postMessage({type: 'save', value: settingsPairs});
+});
+
+document.getElementById("button-save").addEventListener('click', e => {
+    vscode.postMessage({type: 'cancel'});
 });
 
 vscode.postMessage({type: 'loaded'});
