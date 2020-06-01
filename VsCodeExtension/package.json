@@ -4,7 +4,7 @@
   "description": "Visual Studio Code Extension for low level programming",
   "version": "0.0.1",
   "icon": "resources/icon_big.png",
-  "publisher": "Piotr Muras",
+  "publisher": "piotr-muras",
   "author": {
     "name": "Piotr Muras"
   },
