@@ -6,12 +6,12 @@ suite('DependencyAnalyzer searching for headers Test Suite', () => {
 
     test('Check finding proper includes', () => {
         const source = [
-            '#include "header1"',
+            '#include "header1.h"',
             '#include "header2"',
             '    #include "header3"'
         ];
         const output = dependencyAnalyzer['findHeadersInFile'](source.join('\n'));
-        const expected = ['header1', 'header2', 'header3'];
+        const expected = ['header1.h', 'header2', 'header3'];
         assert.deepEqual(output, expected);
     });
 

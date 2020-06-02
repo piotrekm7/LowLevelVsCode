@@ -5,6 +5,7 @@ export abstract class ProgrammingSystem {
     /*
     Basic class, which all device specific classes derives. It implements common methods to all of them.
      */
+    projectLocation: string = "";
 
     public constructor() {
         this.addSettings();
@@ -38,6 +39,7 @@ export abstract class ProgrammingSystem {
         /*
         Creates new project at the specified location.
          */
+        this.projectLocation = location;
         try {
             fs.ensureDirSync(path.join(location, 'src'));
             fs.ensureDirSync(path.join(location, '.vscode'));
