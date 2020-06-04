@@ -62,7 +62,7 @@ export class System {
             Updates system settings.
              */
         if (System.system) {
-            return System.system.setSettings(newSettings);
+            return System.system.updateSettings(newSettings);
         }
         System.systemDoesNotExistBehaviour();
     }
