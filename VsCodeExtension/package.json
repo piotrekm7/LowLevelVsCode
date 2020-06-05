@@ -3,10 +3,14 @@
   "displayName": "nrf52vscode",
   "description": "Visual Studio Code Extension for low level programming",
   "version": "0.0.1",
-  "publisher": "Piotr Muras",
+  "icon": "resources/icon_big.png",
+  "publisher": "piotr-muras",
   "author": {
     "name": "Piotr Muras"
   },
+  "contributors": [{
+    "name": "Adam Grzybowski"
+  }],
   "engines": {
     "vscode": "^1.42.0"
   },
@@ -38,7 +42,7 @@
         {
           "id": "lowlevelvscode",
           "title": "Low Level VS Code",
-          "icon": "resources/cpu.svg"
+          "icon": "resources/icon_small.png"
         }
       ]
     },
