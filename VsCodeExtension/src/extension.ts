@@ -1,6 +1,7 @@
 import * as vscode from "vscode";
 import {System} from "./core/System";
 import * as Webviews from "./frontend/Webviews";
+import OpenProject from './frontend/OpenProject';
 
 export function activate(context: vscode.ExtensionContext) {
     let projectSettings = vscode.commands.registerCommand(
@@ -15,7 +16,11 @@ export function activate(context: vscode.ExtensionContext) {
         "LowLevelVsCode.generateMakefile",
         System.generateMakefile
     );
-    context.subscriptions.push(newProject, generateMakefile, projectSettings);
+    let openProject = vscode.commands.registerCommand(
+        "LowLevelVsCode.OpenProject",
+        OpenProject
+    );
+    context.subscriptions.push(newProject, openProject, generateMakefile, projectSettings);
 }
 
 // this method is called when your extension is deactivated

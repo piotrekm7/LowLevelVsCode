@@ -11,6 +11,11 @@ export class NRF52832 extends NRF52 {
         return super.getDefines().concat(extra_defines);
     }
 
+    protected addSettings(): void {
+        super.addSettings();
+        this.settings.set('ProjectType', 'NRF52832');
+    }
+
     protected getDeviceSignature(): string {
         /*
         Returns device signature which informs external software about target device.
