@@ -1,7 +1,6 @@
 import * as vscode from "vscode";
 import {System} from "./core/System";
 import * as Webviews from "./frontend/Webviews";
-import OpenProject from './frontend/OpenProject';
 
 export function activate(context: vscode.ExtensionContext) {
     let projectSettings = vscode.commands.registerCommand(
@@ -18,7 +17,7 @@ export function activate(context: vscode.ExtensionContext) {
     );
     let openProject = vscode.commands.registerCommand(
         "LowLevelVsCode.OpenProject",
-        OpenProject
+        System.openProject
     );
     context.subscriptions.push(newProject, openProject, generateMakefile, projectSettings);
 }
