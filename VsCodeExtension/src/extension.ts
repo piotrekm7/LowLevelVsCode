@@ -15,7 +15,11 @@ export function activate(context: vscode.ExtensionContext) {
         "LowLevelVsCode.generateMakefile",
         System.generateMakefile
     );
-    context.subscriptions.push(newProject, generateMakefile, projectSettings);
+    let openProject = vscode.commands.registerCommand(
+        "LowLevelVsCode.OpenProject",
+        System.openProject
+    );
+    context.subscriptions.push(newProject, openProject, generateMakefile, projectSettings);
 }
 
 // this method is called when your extension is deactivated

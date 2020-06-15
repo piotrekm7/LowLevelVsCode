@@ -89,7 +89,6 @@ export function newProject(context: vscode.ExtensionContext): () => void {
                     default:
                         console.log("unrecognized message");
                         break;
-                        
                 }
             },
             undefined,
@@ -121,7 +120,6 @@ export function projectSettings(context: vscode.ExtensionContext): () => void {
             context
         );
 
-        // settings = new Map([["ProjectName","newProject"],["GNU_GCC","C:/Program Files (x86)/GNU Tools ARM Embedded/7 2018-q2-update/"],["nRF_SDK","C:\\Users\\piotr\\Desktop\\ABB\\nrf52incode\\nRF5_SDK_15.3.0_59ac345\\nRF5_SDK_15.3.0_59ac345"],["JLinkGDBServer","C:/Program Files (x86)/SEGGER/JLink/JLinkGDBServerCL.exe"]]);
         const entries = [...settings.entries()];
 
         panel.webview.onDidReceiveMessage(
@@ -132,8 +130,6 @@ export function projectSettings(context: vscode.ExtensionContext): () => void {
                         break;
 
                     case "save":
-                        console.log("nosz kurwa");
-                        
                         const savedSettings: Map<string, string> = new Map(message.value);
                         try {
                             System.updateProjectSettings(savedSettings);
