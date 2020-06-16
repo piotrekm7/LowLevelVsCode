@@ -5,6 +5,7 @@
   "version": "0.1.0",
   "icon": "resources/icon_big.png",
   "publisher": "piotr-muras",
+  "repository": "https://github.com/piotrekm7/LowLevelVsCode",
   "author": {
     "name": "Piotr Muras"
   },
