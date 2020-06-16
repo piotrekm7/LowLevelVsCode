@@ -12,15 +12,15 @@ export abstract class NRF extends Embedded {
         super.addSettings();
         this.settings.set(
             "GNU_GCC",
-            "C:/Program Files (x86)/GNU Tools ARM Embedded/7 2018-q2-update/"
+            ""
         );
         this.settings.set(
             "nRF_SDK",
-            "C:\\Users\\piotr\\Desktop\\ABB\\nrf52incode\\nRF5_SDK_15.3.0_59ac345\\nRF5_SDK_15.3.0_59ac345"
+            ""
         );
         this.settings.set(
             "JLinkGDBServer",
-            "C:/Program Files (x86)/SEGGER/JLink/JLinkGDBServerCL.exe"
+            ""
         );
     }
 

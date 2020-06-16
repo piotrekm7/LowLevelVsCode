@@ -28,7 +28,10 @@ export abstract class NRF52 extends NRF {
             '-ffunction-sections -fdata-sections -fno-strict-aliasing',
             '-fno-builtin -fshort-enums',
             '-D__HEAP_SIZE=8192',
-            '-D__STACK_SIZE=8192'
+            '-D__STACK_SIZE=8192',
+            '-U__STRICT_ANSI__',
+            '-D__FPU_PRESENT=1U',
+            '-DARM_MATH_CM4'
         ];
         return super.getCFlags() + flags.join(' ');
     }
@@ -50,7 +53,7 @@ export abstract class NRF52 extends NRF {
 
     protected getLdFlags(): string {
         const flags = [
-            '-mthumb -mabi=aapcs -L $(SDK_ROOT)\\modules\\nrfx\\mdk -T $(LINKER_SCRIPT)',
+            '-mthumb -mabi=aapcs -L $(SDK_ROOT)/components/toolchain/gcc -T $(LINKER_SCRIPT)',
             '-mcpu=cortex-m4',
             '-mfloat-abi=hard -mfpu=fpv4-sp-d16',
             '-Wl,--no-gc-sections',
