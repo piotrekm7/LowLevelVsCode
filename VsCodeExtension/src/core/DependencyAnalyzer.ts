@@ -52,7 +52,8 @@ export class DependencyAnalyzer {
         filesForScanning.push(...project_sources);
         project_sources.forEach((file) => required_source.add(file));
 
-        while (filesForScanning.length) {
+        //TODO remove false to unlock makefile generation
+        while (false && filesForScanning.length) {
             const sourceCode = fs.readFileSync(filesForScanning.shift()!, "utf-8");
             const headers = this.findHeadersInFile(sourceCode);
             for (const header of headers) {
@@ -63,12 +64,12 @@ export class DependencyAnalyzer {
                         this.sourceFolder
                     );
                     if (filepath) {
-                        headers_directories.add(this.getDirectoryPath(filepath));
+                        headers_directories.add(this.getDirectoryPath(filepath!));
                     } else {
                         for (const directory of this.dependenciesFolders) {
                             filepath = this.findFileInFolderOrSubfolders(header, directory);
                             if (filepath) {
-                                headers_directories.add(this.getDirectoryPath(filepath));
+                                headers_directories.add(this.getDirectoryPath(filepath!));
                                 break;
                             }
                         }
