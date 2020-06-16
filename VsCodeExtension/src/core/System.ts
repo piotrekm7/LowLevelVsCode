@@ -58,6 +58,8 @@ export class System {
                 vscode.commands.executeCommand("vscode.openFolder", folderPath);
                 System.system = getSystem(projectType);
                 System.location = folderPath.fsPath;
+                //TODO shouldn't modify it directly
+                System.system.projectLocation = System.location;
                 System.updateProjectSettings(settings);
             }
         });
