@@ -199,7 +199,7 @@ export abstract class CProgramming extends ProgrammingSystem {
     protected abstract getLibFiles(): string;
 
     protected getCFlags(): string {
-        return '-Wall';
+        return '-w';
     }
 
     private getOptimizationFlags(): string {

@@ -33,7 +33,7 @@ export class NRF52840 extends NRF52 {
             '-DNRF_SD_BLE_API_VERSION=5',
             '-DS140'
         ];
-        return super.getCFlags() + flags.join(' ');
+        return super.getCFlags() + ' ' + flags.join(' ');
     }
 
     protected getAsmFlags(): string {
@@ -43,6 +43,6 @@ export class NRF52840 extends NRF52 {
             '-DNRF_SD_BLE_API_VERSION=5',
             '-DS140'
         ];
-        return super.getAsmFlags() + flags.join(' ');
+        return super.getAsmFlags() + ' ' + flags.join(' ');
     }
 }

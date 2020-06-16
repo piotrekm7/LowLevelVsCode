@@ -19,6 +19,9 @@ export abstract class NRF52 extends NRF {
     protected getCFlags(): string {
         const flags = [
             '-DCONFIG_GPIO_AS_PINRESET',
+            '-U__STRICT_ANSI__',
+            '-D__FPU_PRESENT=1U',
+            '-DARM_MATH_CM4',
             '-DFLOAT_ABI_HARD',
             '-DSOFTDEVICE_PRESENT',
             '-DSWI_DISABLE0',
@@ -29,11 +32,8 @@ export abstract class NRF52 extends NRF {
             '-fno-builtin -fshort-enums',
             '-D__HEAP_SIZE=8192',
             '-D__STACK_SIZE=8192',
-            '-U__STRICT_ANSI__',
-            '-D__FPU_PRESENT=1U',
-            '-DARM_MATH_CM4'
         ];
-        return super.getCFlags() + flags.join(' ');
+        return super.getCFlags() + ' ' + flags.join(' ');
     }
 
     protected getAsmFlags(): string {
@@ -48,7 +48,7 @@ export abstract class NRF52 extends NRF {
             '-D__HEAP_SIZE=8192',
             '-D__STACK_SIZE=8192'
         ];
-        return super.getAsmFlags() + flags.join(' ');
+        return super.getAsmFlags() + ' ' + flags.join(' ');
     }
 
     protected getLdFlags(): string {
