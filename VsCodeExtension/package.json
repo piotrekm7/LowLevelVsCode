@@ -1,8 +1,8 @@
 {
-  "name": "nrf52vscode",
-  "displayName": "nrf52vscode",
+  "name": "lowlevelvscode",
+  "displayName": "Low Level VsCode",
   "description": "Visual Studio Code Extension for low level programming",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "icon": "resources/icon_big.png",
   "publisher": "piotr-muras",
   "author": {
