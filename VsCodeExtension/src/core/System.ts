@@ -1,5 +1,8 @@
 import {getSystem, Systems} from "./SystemFactory";
 import * as vscode from "vscode";
+import {Uri} from "vscode";
+import * as fs from 'fs-extra';
+import * as path from "path";
 
 export class System {
     /*
@@ -11,28 +14,79 @@ export class System {
     public static newProject(projectType: Systems): void {
         /*
             Creates new project.
-            Asks user about project type.
             Enables user choosing folder for new project.
         */
-        vscode.window
-            .showOpenDialog({
-                canSelectFiles: false,
-                canSelectFolders: true,
-                canSelectMany: false,
-            })
+        System.openDialogForFolderSelection()
             .then((folders) => {
                 if (folders && folders[0]) {
-                    vscode.commands.executeCommand("vscode.openFolder", folders[0]);
-                    System.system = getSystem(projectType);
-                    System.location = folders[0].fsPath;
-                    if (System.system.newProjectTask(System.location)) {
-                        console.log("New project created!");
-                        return;
-                    }
+                    System.createNewProject(projectType, folders[0]);
                 }
             });
-        console.log("A problem occurred when creating new project!");
-        System.system = undefined;
+    }
+
+    public static openProject(): void {
+        /*
+            Opens existing project.
+            User chooses folder when existing project is located.
+        */
+        System.openDialogForFolderSelection()
+            .then((folders) => {
+                if (folders && folders[0]) {
+                    System.openExistingProject(folders[0]);
+                }
+            });
+    }
+
+    private static parseSettings(data: string): Map<string, string> {
+        /*
+        Parses project settings from json to Map<string, string>.
+         */
+        const jsonSettings = JSON.parse(data);
+        return new Map(jsonSettings);
+    };
+
+    private static openExistingProject(folderPath: Uri): void {
+        /*
+        Opens project located in specified folder.
+         */
+        fs.readFile(path.join(folderPath.fsPath, '.vscode', 'lowlevelvscode.json'), 'utf-8', (err, data) => {
+            if (err) {
+                vscode.window.showWarningMessage('there is no .vscode/lowlevelvscode.json file');
+            } else {
+                const settings = System.parseSettings(data);
+                const projectType = Systems[settings.get('ProjectType') as keyof typeof Systems];
+                vscode.commands.executeCommand("vscode.openFolder", folderPath);
+                System.system = getSystem(projectType);
+                System.location = folderPath.fsPath;
+                System.updateProjectSettings(settings);
+            }
+        });
+    }
+
+    private static openDialogForFolderSelection(): Thenable<Uri[] | undefined> {
+        /*
+        Shows dialog for selecting folder, used in creating and opening folder.
+         */
+        return vscode.window.showOpenDialog({
+            canSelectFiles: false,
+            canSelectFolders: true,
+            canSelectMany: false,
+        });
+    }
+
+    private static createNewProject(projectType: Systems, folderPath: Uri): void {
+        /*
+        Creates new project of specified type at specified location
+         */
+        vscode.commands.executeCommand("vscode.openFolder", folderPath);
+        System.system = getSystem(projectType);
+        System.location = folderPath.fsPath;
+        if (System.system.newProjectTask(System.location)) {
+            console.log("New project created!");
+        } else {
+            console.log("A problem occurred when creating new project!");
+            System.system = undefined;
+        }
     }
 
     static generateMakefile(): void {

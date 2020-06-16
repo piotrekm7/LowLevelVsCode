@@ -19,6 +19,7 @@
   ],
   "activationEvents": [
     "onCommand:LowLevelVsCode.NewProject",
+    "onCommand:LowLevelVsCode.OpenProject",
     "onCommand:LowLevelVsCode.projectSettings"
   ],
   "main": "./out/extension.js",
@@ -27,6 +28,10 @@
       {
         "command": "LowLevelVsCode.NewProject",
         "title": "New Project"
+      },
+      {
+        "command": "LowLevelVsCode.OpenProject",
+        "title": "Open Project"
       },
       {
         "command": "LowLevelVsCode.generateMakefile",
@@ -65,7 +70,7 @@
 		},
 		{
 			"view": "lowlevelvscode-activitybar.quickAccess",
-			"contents": "[New Project](command:LowLevelVsCode.NewProject)\n[Project Settings](command:LowLevelVsCode.projectSettings)"
+			"contents": "[New Project](command:LowLevelVsCode.NewProject)\n[Open Project](command:LowLevelVsCode.OpenProject)\n[Project Settings](command:LowLevelVsCode.projectSettings)"
 		}
 	]
   },

@@ -10,6 +10,11 @@ export class NRF52840 extends NRF52 {
         ];
         return super.getDefines().concat(extra_defines);
     }
+    
+    protected addSettings(): void {
+        super.addSettings();
+        this.settings.set('ProjectType', 'NRF52840');
+    }
 
     protected getDeviceSignature(): string {
         /*
