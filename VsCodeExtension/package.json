@@ -1,0 +1,107 @@
+{
+  "name": "lowlevelvscode",
+  "displayName": "Low Level VsCode",
+  "description": "Visual Studio Code Extension for low level programming",
+  "version": "0.1.0",
+  "icon": "resources/icon_big.png",
+  "publisher": "piotr-muras",
+  "repository": "https://github.com/piotrekm7/LowLevelVsCode",
+  "author": {
+    "name": "Piotr Muras"
+  },
+  "contributors": [{
+    "name": "Adam Grzybowski"
+  }],
+  "engines": {
+    "vscode": "^1.42.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onCommand:LowLevelVsCode.NewProject",
+    "onCommand:LowLevelVsCode.OpenProject",
+    "onCommand:LowLevelVsCode.projectSettings"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "LowLevelVsCode.NewProject",
+        "title": "New Project"
+      },
+      {
+        "command": "LowLevelVsCode.OpenProject",
+        "title": "Open Project"
+      },
+      {
+        "command": "LowLevelVsCode.generateMakefile",
+        "title": "Generate Makefile"
+      },
+      {
+        "command": "LowLevelVsCode.projectSettings",
+        "title": "Project Settings"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "lowlevelvscode",
+          "title": "Low Level VS Code",
+          "icon": "resources/icon_small.png"
+        }
+      ]
+    },
+    "views": {
+      "lowlevelvscode": [
+        {
+          "id": "lowlevelvscode-activitybar.projectTasks",
+          "name": "Project Tasks"
+        },
+        {
+          "id": "lowlevelvscode-activitybar.quickAccess",
+          "name": "Quick Access"
+        }
+      ]
+	},
+	"viewsWelcome": [
+		{
+			"view": "lowlevelvscode-activitybar.projectTasks",
+			"contents": "[Generate Makefile](command:LowLevelVsCode.generateMakefile)"
+		},
+		{
+			"view": "lowlevelvscode-activitybar.quickAccess",
+			"contents": "[New Project](command:LowLevelVsCode.NewProject)\n[Open Project](command:LowLevelVsCode.OpenProject)\n[Project Settings](command:LowLevelVsCode.projectSettings)"
+		}
+	]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "lint": "eslint src --ext ts",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.1.1",
+    "@types/mocha": "^7.0.1",
+    "@types/node": "^12.11.7",
+    "@types/vscode": "^1.42.0",
+    "eslint": "^6.8.0",
+    "@typescript-eslint/parser": "^2.18.0",
+    "@typescript-eslint/eslint-plugin": "^2.18.0",
+    "glob": "^7.1.6",
+    "mocha": "^7.0.1",
+    "typescript": "^3.7.5",
+    "vscode-test": "^1.3.0"
+  },
+  "dependencies": {
+    "@types/fs-extra": "^8.1.0",
+    "fs-extra": "^9.0.0"
+  },
+  "extensionDependencies": [
+    "ms-vscode.cpptools",
+    "marus25.cortex-debug"
+  ]
+}

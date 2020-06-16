@@ -1,0 +1,14 @@
+@import '../globalStyle.css';
+
+
+.box {
+    width: 800px;
+}
+
+.options input {
+    border-radius: 4px;
+    padding: 10px 25px;
+    background-color: #ffffff11;
+    border: solid 1.5px #00000057;
+    color: white;
+}
